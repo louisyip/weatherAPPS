@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
 
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Weather APP'),
     );
   }
 }
@@ -34,8 +34,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 List<Widget> _children = [
   MainPage(),
-  SavePage(),
-  MainPage()
+  SavePage()
 ];
 
 int _selectedIndex = 0; 

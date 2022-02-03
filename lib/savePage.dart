@@ -19,8 +19,6 @@ class _SavePageState extends State<SavePage> {
     setState(() {
     dataList = prefs.getStringList(key) ?? "";
     });
-    print(dataList);
-    print(dataList.length);
   }
   void removeSavedData(int index) async{
     final prefs = await SharedPreferences.getInstance();
@@ -29,20 +27,15 @@ class _SavePageState extends State<SavePage> {
     prefs.setStringList(key, dataList);
   }
    void initState() {
-     print("test");
     getSavedData();
    }
    void weatherSearch(String searchString) {
      searchString = 'q=' + searchString;
     ApiService.nameZipMethod(searchString, (Response response) {
-      print("nameZipMethod");
-      print(response.body);
-      
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => ShowWeatherPage(response:response)));
       
     }, (Error error) {
-      print("Error");
     });
   }
   Widget build(BuildContext context) {

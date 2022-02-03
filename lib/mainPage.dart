@@ -78,7 +78,6 @@ class _MainPageState extends State<MainPage> {
   void nameZipSearch() {
     if (isNumeric(nameZipController.text)) {
       String searchString = 'zip=' + nameZipController.text;
-      print(searchString);
       weatherSearch(searchString);
     } else {
       String searchString = 'q=' + nameZipController.text;
@@ -89,18 +88,13 @@ class _MainPageState extends State<MainPage> {
   double userlatitude = 0;
   double userlongitude = 0;
   void gpsSearch() async {
-    print("gpssearch");
     var position = await GeolocatorPlatform.instance
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    print("gpssearch");
     setState(() {
-      print(position.latitude);
-      print(position.longitude);
       userlatitude = position.latitude;
       userlongitude = position.longitude;
       String searchString =
           'lat=' + position.latitude.toString() + '&lon=' + position.longitude.toString();
-          print(searchString);
       weatherSearch(searchString);
     });
   }
@@ -108,17 +102,12 @@ class _MainPageState extends State<MainPage> {
     final prefs = await SharedPreferences.getInstance();
     final key = "saved";
     List<String> dataString = prefs.getStringList(key) ?? [];
-    print(responseJson['name']+"123");
-    print(dataString);
-    print(responseJson['name']+"123");
     if(dataString.contains(json.encode(SaveCity(
         id: responseJson['id'].toString(),
         title: responseJson['name'],
         cityname :responseJson['name']
       ).toJson()))){
-        print("include");
     }else{
-        print("not include"); 
       List<String> dataList = [];
       if(dataString.length != 0){
       dataList = dataString;
@@ -133,17 +122,13 @@ class _MainPageState extends State<MainPage> {
     }
   }
   void weatherSearch(String searchString) {
-    print(nameZipController.text);
     ApiService.nameZipMethod(searchString, (Response response) {
-      print("nameZipMethod");
-      print(response.body);
       final responseJson = json.decode(response.body);
-      print(responseJson['cod']);
       if (responseJson['cod'] == '400') {
         _showDialog("Warning", "Please enter city name or zip code.");
       } else if (responseJson['cod'] == '404') {
         _showDialog("Warning", "city name or zip code wrong!");
-      } else {
+      } else  {
         savedData(responseJson);
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (context) => ShowWeatherPage(response:response)));

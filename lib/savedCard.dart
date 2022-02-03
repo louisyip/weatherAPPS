@@ -7,7 +7,6 @@ class SavedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(data);
     final responseJson = json.decode(data);
     return Container(
       //color: Colors.green,
